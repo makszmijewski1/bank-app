@@ -32,8 +32,7 @@ public class UserDao extends Dao{
             String userName = result.getString("name");
             Integer userAge = result.getInt("age");
             Long userPesel = result.getLong("pesel");
-            Long userAccountId = result.getLong("accountId");
-            user = new User(userId, userName, userAge, userPesel, userAccountId);
+            user = new User(userId, userName, userAge, userPesel);
         } catch (SQLException e) {
             e.printStackTrace();
             System.out.println("User " + id + " not found.");
@@ -71,5 +70,33 @@ public class UserDao extends Dao{
             System.out.println("User not found");
             return false;
         }
+    }
+
+    public boolean isUserExist(long pesel) {
+        try {
+            Statement statement = connect.createStatement();
+            ResultSet result = statement.executeQuery("SELECT * FROM users WHERE pesel = " + pesel);
+            return result.next();
+        } catch (SQLException e) {
+            return false;
+        }
+    }
+
+    public User getUserByPesel(long pesel) {
+        User user = null;
+        try {
+            Statement statement = connect.createStatement();
+            ResultSet result = statement.executeQuery("SELECT * FROM users WHERE pesel = " + pesel);
+            result.next();
+            Long userId = result.getLong("id");
+            String userName = result.getString("name");
+            Integer userAge = result.getInt("age");
+            Long userPesel = result.getLong("pesel");
+            user = new User(userId, userName, userAge, userPesel);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("User " + pesel + " not found.");
+        }
+        return user;
     }
 }

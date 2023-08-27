@@ -46,6 +46,25 @@ public class AccountDao extends Dao{
         return account;
     }
 
+    public Account getAccountByUsername(String usernameTMP) {
+        Account account = null;
+
+        try{
+            Statement statement = connect.createStatement();
+            ResultSet result = statement.executeQuery("SELECT * FROM account WHERE username = " + usernameTMP);
+            result.next();
+            Long id = result.getLong("id");
+            Double balance = result.getDouble("balance");
+            String username = result.getString("username");
+            String password = result.getString("password");
+            LocalDate date = result.getDate("createDate").toLocalDate();
+            Long userId = result.getLong("userId");
+            account = new Account(id, userId, balance, username, password, date);
+        } catch (SQLException e) {
+            System.out.println("Cannot get Account");
+        }
+        return account;
+    }
 
     public boolean updateAccount (Account tmpAccount) {
         Account account = getAccount(tmpAccount.getId());

@@ -25,4 +25,8 @@ public class UserController {
     public boolean deleteUser(long id) {
         return userDao.deleteUser(id);
     }
+
+    public boolean isUserExist(long pesel) {return userDao.isUserExist(pesel);}
+
+    public User getUserByPesel(long pesel) {return userDao.getUserByPesel(pesel);}
 }

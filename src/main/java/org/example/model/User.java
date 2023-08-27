@@ -7,14 +7,12 @@ public class User {
     private String name;
     private Integer age;
     private Long pesel;
-    private Long accountId;
 
-    public User(Long id, String name, Integer age, Long pesel, Long accountId) {
+    public User(Long id, String name, Integer age, Long pesel) {
         this.id = id;
         this.name = name;
         this.age = age;
         this.pesel = pesel;
-        this.accountId = accountId;
     }
 
     public User() {
@@ -27,7 +25,6 @@ public class User {
                 ", name='" + name + '\'' +
                 ", age=" + age +
                 ", pesel=" + pesel +
-                ", accountId=" + accountId +
                 '}';
     }
 
@@ -63,11 +60,4 @@ public class User {
         this.pesel = pesel;
     }
 
-    public Long getAccountId() {
-        return accountId;
-    }
-
-    public void setAccountId(Long accountId) {
-        this.accountId = accountId;
-    }
 }

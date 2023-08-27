@@ -1,21 +1,23 @@
 package org.example;
 
+import org.example.controller.AccountController;
+import org.example.controller.UserController;
 import org.example.dao.AccountDao;
 import org.example.dao.TransactionDao;
 import org.example.dao.UserDao;
-
-import java.sql.Connection;
-import java.sql.DriverManager;
+import org.example.view.CommandLineView;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.time.LocalDate;
-import java.util.List;
+
 
 public class Main {
     public static void main(String[] args) throws SQLException {
         UserDao userDao = new UserDao();
         AccountDao accountDao = new AccountDao();
         TransactionDao transactionDao = new TransactionDao();
+        UserController userController = new UserController(userDao);
+        AccountController accountController = new AccountController(accountDao);
+
+        CommandLineView commandLineView = new CommandLineView(userController, accountController);
 //        User user = userDao.getUser(1);
 //        System.out.println(user);
 //
@@ -29,8 +31,7 @@ public class Main {
 //
 //        userDao.updateUser(user7);
 //
-
-     //   Account account = new Account(0L, 2L, 0.0, "Maxime", "password", LocalDate.now());
+        //   Account account = new Account(0L, 2L, 0.0, "Maxime", "password", LocalDate.now());
 //        Account account2 = new Account(0L, 1L, 0.0, "Paulina", "password", LocalDate.now());
 //
 //        Account account3 = new Account(3L, null, 5000.0, null, null, null);
@@ -58,7 +59,7 @@ public class Main {
 //            System.out.println(transaction1);
 //        }
 
-
+        commandLineView.listen();
 
     }
 }

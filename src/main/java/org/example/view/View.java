@@ -1,7 +1,9 @@
 package org.example.view;
 
 public interface View {
+    void logIn();
     void listen();
+    void init();
     void authorize();
     void register();
     void exit();

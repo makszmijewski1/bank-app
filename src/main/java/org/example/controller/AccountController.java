@@ -25,4 +25,6 @@ public class AccountController {
     public boolean deleteAccount (long id) {
         return accountDao.deleteAccount(id);
     }
+
+    public Account getAccountByUsername(String username)  {return accountDao.getAccountByUsername(username);}
 }

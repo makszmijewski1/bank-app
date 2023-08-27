@@ -19,6 +19,10 @@ public class ConsoleIO {
        return Double.parseDouble(reader.readLine());
    }
 
+   public static Long readLong() throws IOException {
+       return Long.parseLong(reader.readLine());
+   }
+
    public static void print(String s) {
        System.out.print(s);
    }
