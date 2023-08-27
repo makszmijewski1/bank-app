@@ -22,7 +22,6 @@ public class AccountDao extends Dao{
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("Cannot create account");
         }
     }
 
@@ -40,18 +39,17 @@ public class AccountDao extends Dao{
             Long userId = result.getLong("userId");
             account = new Account(id, userId, balance, username, password, date);
         } catch (SQLException e) {
-            e.printStackTrace();
-            System.out.println("Cannot get Account");
         }
         return account;
     }
 
-    public Account getAccountByUsername(String usernameTMP) {
+    public Account getAccountByUsername(String input) {
         Account account = null;
 
         try{
-            Statement statement = connect.createStatement();
-            ResultSet result = statement.executeQuery("SELECT * FROM account WHERE username = " + usernameTMP);
+            PreparedStatement statement = connect.prepareStatement("SELECT * FROM account WHERE username = ?");
+            statement.setString(1, input);
+            ResultSet result = statement.executeQuery();
             result.next();
             Long id = result.getLong("id");
             Double balance = result.getDouble("balance");
@@ -61,7 +59,7 @@ public class AccountDao extends Dao{
             Long userId = result.getLong("userId");
             account = new Account(id, userId, balance, username, password, date);
         } catch (SQLException e) {
-            System.out.println("Cannot get Account");
+            e.printStackTrace();
         }
         return account;
     }
@@ -86,7 +84,6 @@ public class AccountDao extends Dao{
             return statement.execute();
         }catch (SQLException e ) {
             e.printStackTrace();
-            System.out.println("Account not found");
             return false;
         }
     }
@@ -99,7 +96,6 @@ public class AccountDao extends Dao{
             return statement.execute();
         } catch (SQLException e ) {
             e.printStackTrace();
-            System.out.println("Account not found");
             return false;
         }
     }

@@ -20,8 +20,16 @@ public class TransactionDao extends Dao{
         try {
             PreparedStatement statement = connect.prepareStatement("INSERT INTO transactions (fromAccountId, " +
                     "toAccountId, amount, transactionDate, type) VALUES (?, ?, ?, ?, ?)");
-            statement.setLong(1, transaction.getFromAccountId());
-            statement.setLong(2, transaction.getToAccountId());
+            if (transaction.getFromAccountId() == null) {
+                statement.setNull(1, Types.BIGINT);
+            } else {
+                statement.setLong(1, transaction.getFromAccountId());
+            }
+            if (transaction.getToAccountId() == null) {
+                statement.setNull(2, Types.BIGINT);
+            } else {
+                statement.setLong(2, transaction.getToAccountId());
+            }
             statement.setDouble(3, transaction.getAmount());
             statement.setDate(4, Date.valueOf(transaction.getDate()));
             statement.setString(5, transaction.getTransactionType().toString());
